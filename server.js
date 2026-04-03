@@ -4,11 +4,9 @@ const path = require('path');
 const PORT = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
-    // Default to index.html for root
     let filePath = req.url === '/' ? '/index.html' : req.url;
     filePath = path.join(__dirname, filePath);
 
-    // Check if file exists
     fs.readFile(filePath, (err, data) => {
         if (err) {
             res.writeHead(404, { 'Content-Type': 'text/html' });
@@ -16,7 +14,6 @@ const server = http.createServer((req, res) => {
             return;
         }
 
-        // Set content type
         const ext = path.extname(filePath);
         let contentType = 'text/html';
         if (ext === '.css') contentType = 'text/css';
