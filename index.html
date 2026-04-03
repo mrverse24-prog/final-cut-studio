@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Cut Studio - Reserva de Barbería Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: #1a1f3a;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #d4af37, #f0e68c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #d4af37;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .language-toggle {
+            display: flex;
+            background: #2d3561;
+            border-radius: 5px;
+            padding: 0.3rem;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            padding: 0.6rem 1rem;
+            border: none;
+            background: transparent;
+            color: #e0e0e0;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: #d4af37;
+            color: #0a0e27;
+        }
+
+        .btn-book {
+            background: linear-gradient(135deg, #d4af37, #f0e68c);
+            color: #0a0e27;
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-book:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a1f3a 0%, #2d3561 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37, #f0e68c);
+            color: #0a0e27;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #d4af37;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid #d4af37;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #d4af37;
+            color: #0a0e27;
+        }
+
+        /* Barbers Section */
+        .barbers-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #ffffff;
+        }
+
+        .barbers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .barber-card {
+            background: #1a1f3a;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #2d3561;
+        }
+
+        .barber-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .barber-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #2d3561, #3d4671);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .barber-info {
+            padding: 1.5rem;
+        }
+
+        .barber-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+
+        .barber-specialty {
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .barber-rating {
+            color: #f0e68c;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .barber-btn {
+            width: 100%;
+            background: #d4af37;
+            color: #0a0e27;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .barber-btn:hover {
+            background: #f0e68c;
+            transform: scale(1.02);
+        }
+
+        /* Services Section */
+        .services-section {
+            background: #1a1f3a;
+            padding: 5rem 2rem;
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: #0a0e27;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid #d4af37;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-desc {
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .service-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #f0e68c;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0e27;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid #2d3561;
+            color: #808080;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #f0e68c;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .barbers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-left">
+            <div class="logo">✂️ Final Cut Studio</div>
+            <ul class="nav-links">
+                <li><a href="#barbers" data-es="Barberos" data-en="Barbers">Barberos</a></li>
+                <li><a href="#services" data-es="Servicios" data-en="Services">Servicios</a></li>
+                <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <div class="language-toggle">
+                <button class="lang-btn active" onclick="setLanguage('es')">ES</button>
+                <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+            </div>
+            <button class="btn-book" data-es="Reservar Ahora" data-en="Book Now" onclick="scrollToBooking()">Reservar Ahora</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 data-es="Experiencia de Barbería Premium" data-en="Premium Barbershop Experience">Experiencia de Barbería Premium</h1>
+        <p data-es="Reserva con los mejores barberos de la ciudad. Cortes limpios, servicio impecable." data-en="Book with the city's finest barbers. Clean cuts, sharp service.">Reserva con los mejores barberos de la ciudad. Cortes limpios, servicio impecable.</p>
+        <div class="hero-cta">
+            <button class="btn-primary" data-es="Comenzar a Reservar" data-en="Start Booking" onclick="scrollToBooking()">Comenzar a Reservar</button>
+            <button class="btn-secondary" data-es="Ver Servicios" data-en="See Services" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">Ver Servicios</button>
+        </div>
+    </section>
+
+    <!-- Barbers Section -->
+    <section class="barbers-section" id="barbers">
+        <h2 class="section-title" data-es="Conoce a Nuestros Barberos" data-en="Meet Our Barbers">Conoce a Nuestros Barberos</h2>
+        <div class="barbers-grid" id="barbersContainer">
+            <!-- Barber cards will load here dynamically -->
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="services-container">
+            <h2 class="section-title" data-es="Nuestros Servicios" data-en="Our Services">Nuestros Servicios</h2>
+            <div class="services-grid" id="servicesContainer">
+                <!-- Service cards will load here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <p data-es="© 2026 Final Cut Studio. Todos los derechos reservados." data-en="© 2026 Final Cut Studio. All rights reserved.">© 2026 Final Cut Studio. Todos los derechos reservados.</p>
+        <p data-es="📍 Filadelfia, PA | 📞 (215) 555-0123" data-en="📍 Philadelphia, PA | 📞 (215) 555-0123">📍 Filadelfia, PA | 📞 (215) 555-0123</p>
+        <div class="social-links">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">TikTok</a>
+        </div>
+    </footer>
+
+    <script>
+        // Translation Object - All content in Spanish and English
+        const translations = {
+            barbers: [
+                {
+                    id: 1,
+                    name: "Marcus",
+                    specialty_es: "Experto en Fades",
+                    specialty_en: "Fade Expert",
+                    rating: "4.9★",
+                    emoji: "💈"
+                },
+                {
+                    id: 2,
+                    name: "DeShawn",
+                    specialty_es: "Especialista en Diseño de Barba",
+                    specialty_en: "Beard Design Specialist",
+                    rating: "4.8★",
+                    emoji: "💇"
+                },
+                {
+                    id: 3,
+                    name: "Jaylen",
+                    specialty_es: "Line Ups y Bordes Afilados",
+                    specialty_en: "Line Ups & Sharp Edges",
+                    rating: "5.0★",
+                    emoji: "✨"
+                }
+            ],
+            services: [
+                {
+                    name_es: "Fade Clásico",
+                    name_en: "Classic Fade",
+                    description_es: "Fade limpio y preciso con line up",
+                    description_en: "Clean, precise fade with line up",
+                    price: "$25"
+                },
+                {
+                    name_es: "Corte de Barba",
+                    name_en: "Beard Trim",
+                    description_es: "Corte y forma profesional de barba",
+                    description_en: "Professional beard shaping & trim",
+                    price: "$20"
+                },
+                {
+                    name_es: "Corte + Barba",
+                    name_en: "Haircut + Beard",
+                    description_es: "Paquete completo de aseo",
+                    description_en: "Full grooming package",
+                    price: "$40"
+                },
+                {
+                    name_es: "Line Up con Diseño",
+                    name_en: "Design Line Up",
+                    description_es: "Diseño personalizado con bordes afilados",
+                    description_en: "Custom design with sharp edges",
+                    price: "$30"
+                },
+                {
+                    name_es: "Corte para Niños",
+                    name_en: "Kids Cut",
+                    description_es: "Corte para niños menores de 12 años",
+                    description_en: "Haircut for kids under 12",
+                    price: "$20"
+                },
+                {
+                    name_es: "Lavado y Secado",
+                    name_en: "Wash & Dry",
+                    description_es: "Lavado completo y peinado",
+                    description_en: "Complete wash and styling",
+                    price: "$15"
+                }
+            ]
+        };
+
+        let currentLanguage = 'es';
+
+        // Set Language Function
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update language toggle buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update all elements with data attributes
+            document.querySelectorAll('[data-es][data-en]').forEach(element => {
+                if (element.tagName === 'A' || element.tagName === 'BUTTON') {
+                    element.textContent = lang === 'es' ? element.dataset.es : element.dataset.en;
+                } else {
+                    element.textContent = lang === 'es' ? element.dataset.es : element.dataset.en;
+                }
+            });
+
+            // Reload barbers and services with new language
+            loadBarbers();
+            loadServices();
+
+            // Save language preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Load Barbers
+        function loadBarbers() {
+            const container = document.getElementById('barbersContainer');
+            container.innerHTML = translations.barbers.map(barber => 
+                <div class="barber-card">
+                    <div class="barber-image">${barber.emoji}</div>
+                    <div class="barber-info">
+                        <div class="barber-name">${barber.name}</div>
+                        <div class="barber-specialty">${currentLanguage === 'es' ? barber.specialty_es : barber.specialty_en}</div>
+                        <div class="barber-rating">${barber.rating}</div>
+                        <button class="barber-btn" onclick="bookWithBarber('${barber.name}')">${currentLanguage === 'es' ? 'Reservar ' + barber.name : 'Book ' + barber.name}</button>
+                    </div>
+                </div>
+            ).join('');
+        }
+
+        // Load Services
+        function loadServices() {
+            const container = document.getElementById('servicesContainer');
+            container.innerHTML = translations.services.map(service => 
+                <div class="service-card">
+                    <div class="service-title">${currentLanguage === 'es' ? service.name_es : service.name_en}</div>
+                    <div class="service-desc">${currentLanguage === 'es' ? service.description_es : service.description_en}</div>
+                    <div class="service-price">${service.price}</div>
+                </div>
+            ).join('');
+        }
+
+        // Book with barber
+        function bookWithBarber(barberName) {
+            const msg = currentLanguage === 'es' 
+                ? Redirigiendo a la página de reserva para ${barberName}... 
+                : Redirecting to booking page for ${barberName}...;
+            alert(msg);
+        }
+
+        // Scroll to booking
+        function scrollToBooking() {
+            const msg = currentLanguage === 'es' 
+                ? '¡El sistema de reserva viene próximamente!' 
+                : 'Booking system coming next!';
+            alert(msg);
+        }
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check for saved language preference
+            const savedLanguage = localStorage.getItem('preferredLanguage') || 'es';
+            setLanguage(savedLanguage);
+            loadBarbers();
+            loadServices();
+        });
+    </script>
+</body>
+</html>
